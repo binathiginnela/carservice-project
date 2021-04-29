@@ -1,0 +1,67 @@
+{% load static %}
+<nav class="navbar navbar-expand-sm bg-white navbar-white">
+  <a class="navbar-brand" href="#">
+    <img src="{% static 'images/car.png' %}" style="width:40px;"><h1 class="text-warning">ONLINE CAR SERVICE CENTER</h1>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      {% if not user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link text-info" href="{% url 'home' %}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-info" href="{% url 'ab' %}">About us</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-info" href="{% url 'cn' %}">Contact us</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-info" href="{% url 'show' %}">Services</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-info" href="{% url 'lg' %}">Book A Service</a>
+      </li>
+      {% else %}
+      {% if user.is_superuser %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'home' %}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'ser' %}">add service</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'show' %}">edit/delete services</a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'home' %}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'show' %}">view services</a>
+      </li>
+      {% endif %}
+      {% endif %}
+    </ul>
+    <ul class="navbar-nav ml-auto" style="margin-right:120px">
+      {% if not user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'lg' %}">Login</a>
+      </li>
+      {% else %}
+      <li class="dropdown">
+        <a type="button" class="nav-link dropdown-toggle" data-toggle="dropdown">
+          {{user.username}}
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="{% url 'pro' %}">Profile</a>
+          <a class="dropdown-item" href="#">Change Password</a>
+          <a class="dropdown-item" href="{% url 'lgo' %}">Logout</a>
+        </div>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
